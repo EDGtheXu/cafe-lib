@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.edg_thexu.cafelib.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "cafelib.refmap.json",
+  "mixins": [
+    "CapabilityProviderMixin",
+    "ItemMixin",
+    "ItemStackMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
