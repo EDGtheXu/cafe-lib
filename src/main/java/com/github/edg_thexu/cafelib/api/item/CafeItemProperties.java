@@ -23,7 +23,7 @@ public class CafeItemProperties extends Item.Properties {
 
     public void init(ItemStack stack){
         this.dataComponentTypeMap.forEach((k,v)->{
-            v.writeToNBT(k, stack.getOrCreateTag());
+            v.writeToNBT(stack.getOrCreateTag());
         });
     }
 }

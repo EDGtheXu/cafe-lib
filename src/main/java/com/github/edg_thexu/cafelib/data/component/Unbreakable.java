@@ -1,6 +1,8 @@
 package com.github.edg_thexu.cafelib.data.component;
 
 import com.github.edg_thexu.cafelib.api.datacomponent.IDataComponentType;
+import com.github.edg_thexu.cafelib.data.codec.DataComponentProvider;
+import com.github.edg_thexu.cafelib.init.CafeDataComponentTypes;
 import com.mojang.serialization.Codec;
 import net.minecraft.nbt.CompoundTag;
 
@@ -24,8 +26,8 @@ public record Unbreakable(boolean showText) implements IDataComponentType<Unbrea
     }
 
     @Override
-    public Codec<Unbreakable> codec() {
-        return CODEC.get();
+    public DataComponentProvider<Unbreakable> provider() {
+        return CafeDataComponentTypes.UNBREAKABLE_COMPONENT.get();
     }
 
 

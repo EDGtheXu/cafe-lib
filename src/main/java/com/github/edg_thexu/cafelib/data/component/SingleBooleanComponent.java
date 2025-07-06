@@ -1,8 +1,9 @@
 package com.github.edg_thexu.cafelib.data.component;
 
 import com.github.edg_thexu.cafelib.api.datacomponent.IDataComponentType;
+import com.github.edg_thexu.cafelib.data.codec.DataComponentProvider;
+import com.github.edg_thexu.cafelib.init.CafeDataComponentTypes;
 import com.mojang.serialization.Codec;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -17,7 +18,7 @@ public record SingleBooleanComponent(boolean value) implements IDataComponentTyp
 
 
     @Override
-    public @Nullable Codec<SingleBooleanComponent> codec() {return CODEC.get();}
+    public DataComponentProvider<SingleBooleanComponent> provider() {return CafeDataComponentTypes.BOOLEAN_COMPONENT.get();}
 
     @Override
     public boolean equals(Object object) {

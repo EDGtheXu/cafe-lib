@@ -3,7 +3,6 @@ package com.github.edg_thexu.cafelib.api.datacomponent;
 import com.github.edg_thexu.cafelib.data.codec.DataComponentProvider;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.GsonHelper;
@@ -24,13 +23,13 @@ public interface IDataComponentType<T extends IDataComponentType<T>> {
      * 写入NBT
      * @param tag 待写入的NBT,由框架自动调用
      */
-    default void writeToNBT(Supplier<DataComponentProvider<T>> provider, CompoundTag tag){
-        JsonElement obj = provider.get().codec().encodeStart(JsonOps.INSTANCE, (T) this).result().get();
-        tag.putString(provider.get().name(), obj.toString());
+    default void writeToNBT(CompoundTag tag){
+        JsonElement obj = provider().codec().encodeStart(JsonOps.INSTANCE, (T) this).result().get();
+        tag.putString(provider().name(), obj.toString());
     }
 
 
-    Codec<T> codec();
+    DataComponentProvider<T> provider();
 
 //    MapCodec<? extends IDataComponentType<?>> TYPED_CODEC = TERegistries.DataComponentProviders.REGISTRY.get()
 //            .getCodec()
