@@ -109,6 +109,9 @@ public abstract class ConfigScreen extends Screen {
         }
 
 
+        // 绘制标题
+        this.renderTitle(g, mouseX, mouseY, partialTicks);
+
         // 渲染彩色标题
 
 //        target.setClearColor(0 ,0, 0, 0);
@@ -138,6 +141,7 @@ public abstract class ConfigScreen extends Screen {
 
     }
 
+    protected abstract void renderTitle(GuiGraphics g, int mouseX, int mouseY, float partialTicks);
 
     @Override
     public void onClose() {
