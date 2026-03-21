@@ -1,0 +1,6 @@
+{
+  "desc" : "Json in this folder enable to forbid recipes by regex supporting full matches when matching loot table id. This file is excluded",
+  "values" : [
+    "cafelib:entities.*"
+  ]
+}

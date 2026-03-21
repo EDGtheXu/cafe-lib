@@ -7,7 +7,11 @@
   "mixins": [
     "CapabilityProviderMixin",
     "ItemMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "server.LootDataManagerMixin",
+    "server.NaturalSpawnerMixin",
+    "server.RecipeManagerMixin",
+    "server.ReloadableServerResourcesMixin"
   ],
   "client": [
   ],
