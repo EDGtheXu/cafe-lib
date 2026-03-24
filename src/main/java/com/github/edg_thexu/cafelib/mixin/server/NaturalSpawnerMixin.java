@@ -17,16 +17,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(NaturalSpawner.class)
 public class NaturalSpawnerMixin {
 
-    @Inject(method = "isValidSpawnPostitionForType", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "isValidSpawnPostitionForType", at = @At("HEAD"))
     private static void check(ServerLevel pLevel, MobCategory pCategory, StructureManager pStructureManager, ChunkGenerator pGenerator, MobSpawnSettings.SpawnerData pData, BlockPos.MutableBlockPos pPos, double pDistance, CallbackInfoReturnable<Boolean> cir) {
 
-        var opt = pLevel.getBiome(pPos).unwrapKey();
-        if(opt.isPresent()) {
-            if(LivingSpawnForbidden.getInstance().checkForbidden(EntityType.getKey(pData.type), opt.get().location())) {
-                cir.setReturnValue(false);
-                cir.cancel();
-            }
-        }
+//        var opt = pLevel.getBiome(pPos).unwrapKey();
+//        if(opt.isPresent()) {
+//            if(LivingSpawnForbidden.getInstance().checkForbidden(EntityType.getKey(pData.type), opt.get().location())) {
+//                cir.setReturnValue(false);
+//                cir.cancel();
+//            }
+//        }
 
     }
 }

@@ -9,8 +9,12 @@
     "ItemMixin",
     "ItemStackMixin",
     "server.LootDataManagerMixin",
+    "server.MobSpawnSettingsBuilderMixin",
+    "server.MobSpawnSettingsMixin",
+    "server.ModifiableBiomeInfoMixin",
     "server.NaturalSpawnerMixin",
     "server.RecipeManagerMixin",
+    "server.RegistryDataLoaderMixin",
     "server.ReloadableServerResourcesMixin"
   ],
   "client": [

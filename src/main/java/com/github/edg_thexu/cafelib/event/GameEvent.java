@@ -13,7 +13,7 @@ public class GameEvent {
     @SubscribeEvent
     public static void addReloadListener(AddReloadListenerEvent event) {
 
-        event.addListener(LivingSpawnForbidden.getInstance());
+//        event.addListener(LivingSpawnForbidden.getInstance());
     }
 
 }

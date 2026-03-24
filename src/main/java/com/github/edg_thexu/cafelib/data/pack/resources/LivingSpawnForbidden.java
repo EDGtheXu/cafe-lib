@@ -8,13 +8,18 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class LivingSpawnForbidden extends SimpleJsonResourceReloadListener {
     public static final String KEY = "forbidden/spawner";
@@ -23,6 +28,8 @@ public class LivingSpawnForbidden extends SimpleJsonResourceReloadListener {
     private final List<TuplePattern> forbidden = new ArrayList<>();
 
     private final HashMap<Tuple, Boolean> cache = new HashMap<>();
+
+    public static ResourceLocation dynamicBiomeId = null;
 
     private record Tuple(String entityType, String biome){
         private static final Codec<Tuple> CODEC = RecordCodecBuilder.create(instance->instance.group(
@@ -96,4 +103,22 @@ public class LivingSpawnForbidden extends SimpleJsonResourceReloadListener {
         return false;
     }
 
+    public void preload(ResourceManager manager, Executor backgroundExecutor) {
+
+        var barrier = new PreparableReloadListener.PreparationBarrier() {
+            public <T> CompletableFuture<T> wait(@NotNull T backgroundResult) {
+                return CompletableFuture.completedFuture(backgroundResult);
+            }
+        };
+
+        List<CompletableFuture<Void>> allTask = Stream.of(this).map(
+                        listener -> listener.reload(barrier, manager, InactiveProfiler.INSTANCE,
+                                InactiveProfiler.INSTANCE, backgroundExecutor, Runnable::run))
+                .toList();
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(allTask.toArray(new CompletableFuture[0]));
+        allOf.join();
+
+        System.out.println("预加载数据包完成");
+    }
 }
